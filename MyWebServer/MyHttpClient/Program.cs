@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MyHttpClient
 {
@@ -48,8 +51,20 @@ namespace MyHttpClient
 
                 }
             }
+        }
 
+        public static async Task ReadData()
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            string url = "https://softuni.bg/trainings/3164/csharp-web-basics-september-2020/internal#lesson-18198";
+            HttpClient httpClient = new HttpClient();
+            //var html = await httpClient.GetStringAsync(url);
+            var response = await httpClient.GetAsync(url);
 
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine(string.Join(Environment.NewLine, response.Headers.Select(x => x.Key + ": " + x.Value.First())));
+
+            //Console.WriteLine(html);
         }
     }
 }

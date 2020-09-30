@@ -38,6 +38,12 @@ namespace MyHttpClient
                     Encoding.UTF8.GetString(buffer, 0, lenght);
                 Console.WriteLine(requestString);
 
+                //bool sessionSet = false;
+                //if (requestString.Contains("sid="))
+                //{
+                //    sessionSet = true;
+                //}
+
                 string html = $"<h1>Hello from TeoServer {DateTime.Now}</h1>" +
                     $"<form method=post><input name=username /><input name=password />" +
                     $"<input type=submit /></form>";
@@ -47,6 +53,10 @@ namespace MyHttpClient
                     //"Location: https://www.google.com" + NewLine +
                     //"Content-Disposition: attachment; filename=teo.txt" + NewLine +
                     "Content-Type: text/html; charset=utf-8" + NewLine +
+                    "X-Server-Version: 1.0" + NewLine +
+                    //(!sessionSet ? ("Set-Cookie: sid=blaBLA1; Path=/;" + NewLine) : string.Empty) +
+                    //"Set-Cookie: sid=traLaLa454; Path=/; Expires= " + DateTime.UtcNow.AddHours(1).ToString("R") + NewLine +
+                    "Set-Cookie: sid=traLaLa454; Path=/; HttpOnly; Max-Age=" + (3 * 60) + NewLine +
                     "Content-Lenght: " + html.Length + NewLine +
                     NewLine +
                     html + NewLine;
